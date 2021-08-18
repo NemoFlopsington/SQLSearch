@@ -22,7 +22,7 @@ namespace BusinessLogic
             this.repoLocation = repoLocation;
             excludedTags = StopWords.getEnglishStopWords();
         }
-        public Dictionary<string, int> run()
+        public Dictionary<string, int> Run()
         {
 
             string[] fileNames = getAllFileNames(repoLocation);
@@ -50,14 +50,14 @@ namespace BusinessLogic
             var Tags = getTags(repoLocation + "\\" + fileName);
             searchText = searchText.Replace(",", "").Replace("-", "");
             var searchTags = searchText.Split(' ');            
-            return (List<string>)Tags.Intersect(searchTags);
+            return new List<string>(Tags.Intersect(searchTags));
         }
-        private List<string> getTags(string fileName)
+        private List<string> getTags(string filePath)
         {           
-            var fileLines = File.ReadAllLines(fileName);
+            var fileLines = File.ReadAllLines(filePath);
             var tags = new List<string>();
-            var tagsRegex = new Regex(@"(--|/\*)*\s*Tags\s*:.*", RegexOptions.IgnoreCase);
-            var descRegex = new Regex(@"(--|/\*)*\s*Description\s*:.*", RegexOptions.IgnoreCase);
+            var tagsRegex = new Regex(@"(--|/\*)*\s*Tags\s*:", RegexOptions.IgnoreCase);
+            var descRegex = new Regex(@"(--|/\*)*\s*Description\s*:", RegexOptions.IgnoreCase);
             foreach (string line in fileLines)
             {
                 if (tagsRegex.IsMatch(line.Trim()))
@@ -65,7 +65,7 @@ namespace BusinessLogic
                     var newLine = tagsRegex.Replace(line.Trim(), "");
                     foreach (string tag in newLine.Split(','))
                         if(!excludedTags.ContainsKey(tag))
-                            tags.Add(tag.ToLower());
+                            tags.Add(tag.ToLower().Trim());
                 }
                 if (descRegex.IsMatch(line.Trim()))
                 {
@@ -74,13 +74,16 @@ namespace BusinessLogic
                     {
                         var newTag = tag.Replace(",", "");
                         if (!excludedTags.ContainsKey(tag))
-                            tags.Add(newTag.ToLower());
+                            tags.Add(newTag.ToLower().Trim());
                     }
                 }
             }
+            var IndexOfFileName = filePath.LastIndexOf("\\");
+            var fileName = filePath.Substring(IndexOfFileName, filePath.Length-1);
+
             var fileNameTags = Regex.Split(fileName, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})");
             foreach(string tag in fileNameTags)
-                tags.Add(tag);
+                tags.Add(tag.ToLower());
             return tags;
         }
        

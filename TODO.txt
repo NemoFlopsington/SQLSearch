@@ -1,0 +1,9 @@
+Features to impliment when I have time
+
+search by -ed, -s/es, ing, etc
+
+impliment a user var comment and allow the user to enter in the variables
+
+Ensure flags are within comments and not part of the script
+
+Add relevant Jira tickets flag

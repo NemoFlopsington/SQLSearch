@@ -1,4 +1,4 @@
 --Author: ndeason
-/*Tags: empty, nothing	*/
---Description: This is an empty Script
+/*Tags: tableId, username	*/
+--Description: get project metadata
 SELECT tableId, userName FROM project.dbo.metadata

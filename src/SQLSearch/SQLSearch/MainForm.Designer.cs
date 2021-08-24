@@ -1,6 +1,6 @@
 ﻿namespace SQLSearch
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,6 +37,8 @@
             this.SearchBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.Scriptslsv = new System.Windows.Forms.ListView();
+            this.ScriptInfoDisplayTxt = new System.Windows.Forms.TextBox();
+            this.LoadedTimerLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RepoLocationTxt
@@ -73,6 +75,7 @@
             this.AuthorTxt.Name = "AuthorTxt";
             this.AuthorTxt.Size = new System.Drawing.Size(189, 26);
             this.AuthorTxt.TabIndex = 2;
+            this.AuthorTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AuthorTxt_keyPress);
             // 
             // label3
             // 
@@ -86,12 +89,14 @@
             // 
             // SearchTxt
             // 
+            this.SearchTxt.AcceptsReturn = true;
             this.SearchTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchTxt.Location = new System.Drawing.Point(80, 107);
-            this.SearchTxt.Multiline = true;
+            this.SearchTxt.MinimumSize = new System.Drawing.Size(100, 100);
             this.SearchTxt.Name = "SearchTxt";
-            this.SearchTxt.Size = new System.Drawing.Size(317, 71);
+            this.SearchTxt.Size = new System.Drawing.Size(317, 26);
             this.SearchTxt.TabIndex = 4;
+            this.SearchTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchTxt_Enter);
             // 
             // SearchBtn
             // 
@@ -118,17 +123,43 @@
             // 
             this.Scriptslsv.HideSelection = false;
             this.Scriptslsv.Location = new System.Drawing.Point(421, 55);
+            this.Scriptslsv.MultiSelect = false;
             this.Scriptslsv.Name = "Scriptslsv";
             this.Scriptslsv.Size = new System.Drawing.Size(336, 244);
             this.Scriptslsv.TabIndex = 9;
             this.Scriptslsv.UseCompatibleStateImageBehavior = false;
             this.Scriptslsv.View = System.Windows.Forms.View.List;
+            this.Scriptslsv.SelectedIndexChanged += new System.EventHandler(this.Scriptslsv_SelectedIndexChanged);
             // 
-            // Form1
+            // ScriptInfoDisplayTxt
+            // 
+            this.ScriptInfoDisplayTxt.AcceptsReturn = true;
+            this.ScriptInfoDisplayTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ScriptInfoDisplayTxt.Location = new System.Drawing.Point(296, 305);
+            this.ScriptInfoDisplayTxt.Multiline = true;
+            this.ScriptInfoDisplayTxt.Name = "ScriptInfoDisplayTxt";
+            this.ScriptInfoDisplayTxt.ReadOnly = true;
+            this.ScriptInfoDisplayTxt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.ScriptInfoDisplayTxt.Size = new System.Drawing.Size(461, 167);
+            this.ScriptInfoDisplayTxt.TabIndex = 10;
+            // 
+            // LoadedTimerLbl
+            // 
+            this.LoadedTimerLbl.AutoSize = true;
+            this.LoadedTimerLbl.Location = new System.Drawing.Point(526, 29);
+            this.LoadedTimerLbl.Name = "LoadedTimerLbl";
+            this.LoadedTimerLbl.Size = new System.Drawing.Size(98, 17);
+            this.LoadedTimerLbl.TabIndex = 11;
+            this.LoadedTimerLbl.Text = "Completed in: ";
+            this.LoadedTimerLbl.Visible = false;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 509);
+            this.Controls.Add(this.LoadedTimerLbl);
+            this.Controls.Add(this.ScriptInfoDisplayTxt);
             this.Controls.Add(this.Scriptslsv);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.SearchBtn);
@@ -138,7 +169,7 @@
             this.Controls.Add(this.AuthorTxt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RepoLocationTxt);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -156,6 +187,8 @@
         private System.Windows.Forms.Button SearchBtn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView Scriptslsv;
+        private System.Windows.Forms.TextBox ScriptInfoDisplayTxt;
+        private System.Windows.Forms.Label LoadedTimerLbl;
     }
 }
 
